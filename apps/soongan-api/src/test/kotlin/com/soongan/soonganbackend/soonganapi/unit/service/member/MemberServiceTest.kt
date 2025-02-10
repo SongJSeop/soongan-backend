@@ -73,8 +73,8 @@ class MemberServiceTest {
         )
 
         // when
-        val result1 = memberService.checkEnableNickname(nickname1)
-        val result2 = memberService.checkEnableNickname(nickname2)
+        val result1 = memberService.isDuplicatedNickname(nickname1)
+        val result2 = memberService.isDuplicatedNickname(nickname2)
 
         // then
         assertThat(result1).isTrue

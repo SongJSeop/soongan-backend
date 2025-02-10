@@ -20,8 +20,8 @@ class MemberService(
     }
 
     @Transactional(readOnly = true)
-    fun checkEnableNickname(nickname: String): Boolean {
-        return memberAdapter.getByNickname(nickname) == null
+    fun isDuplicatedNickname(nickname: String): Boolean {
+        return memberAdapter.getByNickname(nickname) != null
     }
 
     @Transactional
@@ -37,7 +37,7 @@ class MemberService(
 
     @Transactional
     fun updateProfile(loginMember: MemberEntity, request: UpdateProfileRequestDto): UpdateProfileResponseDto {
-        if (request.nickname != null && request.nickname != loginMember.nickname && checkEnableNickname(request.nickname).not()) {
+        if (request.nickname != null && request.nickname != loginMember.nickname && isDuplicatedNickname(request.nickname).not()) {
             throw SoonganException(StatusCode.SOONGAN_API_DUPLICATED_NICKNAME, "닉네임이 중복됩니다.")
         }
 
